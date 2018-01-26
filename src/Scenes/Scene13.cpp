@@ -48,13 +48,16 @@ void Scene13::draw()
 	{
 		ofxCvBlob blob = this->getLeftBlob(blobs);
 		
+		const int moveDeltaX = 100;			// 移動量X
+		const int moveDeltaY = 100;			// 移動量Y
+		
 		ofFill();
 		ofSetColor(255, 255, 255);
 		ofBeginShape();
 
 		for (int i = 0; i < blob.pts.size(); i++)
 		{
-			double x = blob.pts[i].x;
+			double x = blob.pts[i].x + moveDeltaX;
 			double y = blob.pts[i].y;
 			
 			ofVertex(x, y);

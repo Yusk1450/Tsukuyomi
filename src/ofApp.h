@@ -7,7 +7,7 @@
 
 #include "SceneBase.hpp"
 
-#define DEBUG_MODE
+//#define DEBUG_MODE
 
 class ofApp : public ofBaseApp
 {

@@ -3,6 +3,7 @@
 #include "Scene8.hpp"
 #include "Scene13.hpp"
 #include "Scene15.hpp"
+#include "Scene23.hpp"
 
 /* -------------------------------------------------------------
  初期化
@@ -22,13 +23,14 @@ void ofApp::setup()
 	this->kinect->init();
 	this->kinect->open();
 
-	this->kinectTiltAngle = 0;
+	this->kinectTiltAngle = 15;
 	this->kinect->setCameraTiltAngle(this->kinectTiltAngle);
 	
 	// シーン初期化
 	this->scenes.push_back(new Scene8(this->kinect));			// シーン8
-	this->scenes.push_back(new Scene13(this->kinect));			// シーン13
-	this->scenes.push_back(new Scene15(this->kinect));			// シーン15
+//	this->scenes.push_back(new Scene13(this->kinect));			// シーン13
+//	this->scenes.push_back(new Scene15(this->kinect));			// シーン15
+	this->scenes.push_back(new Scene23(this->kinect));			// シーン23
 
 }
 
@@ -37,6 +39,9 @@ void ofApp::setup()
  ------------------------------------------------------------- */
 void ofApp::update()
 {
+	SceneBase *scene = this->scenes[this->currentSceneIdx];
+	ofSetWindowTitle("SceneID: "+ofToString(scene->sceneNum));
+	
 	this->kinect->update();
 	(this->scenes[this->currentSceneIdx])->update();
 }
@@ -148,6 +153,15 @@ void ofApp::keyPressed(int key)
 	else if (key == 13)
 	{
 		this->isBackScreen = false;
+	}
+	else if (key == 115)
+	{
+		SceneBase *scene = this->scenes[this->currentSceneIdx];
+		if (scene->sceneNum == 23)
+		{
+			Scene23 *scene23 = dynamic_cast<Scene23 *>(scene);
+			scene23->split();
+		}
 	}
 }
 
